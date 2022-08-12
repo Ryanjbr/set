@@ -1,3 +1,4 @@
+/* code to create a deck adapted from William Vincent https://wsvincent.com/javascript-object-oriented-deck-cards/ */
 class Deck {
     constructor() {
         this.deck = [];
@@ -38,5 +39,16 @@ class Deck {
     }
 }
 const deck1 = new Deck();
-console.log(deck1.deck)
-console.log(deck1.deck.length)
+
+const body = document.querySelector('body')
+
+
+function fillTable() {
+    for (let i = 0; i < 12; i++) {
+        let card =body.appendChild(document.createElement('div'))
+        card.className = `card${i}`;
+        card.textContent = deck1.deal();
+    }
+};
+
+fillTable();
