@@ -1,6 +1,25 @@
 class Deck {
     constructor() {
         this.deck = [];
+        this.reset();
+        this.shuffle()
+    }
+    shuffle() {
+        const { deck } = this;
+        let m = deck.length, i;
+
+        while (m) {
+            i = Math.floor(Math.random() * m--);
+
+            [deck[m], deck[i]] = [deck[i], deck[m]];    
+        }
+        return this;
+    }
+    deal() {
+        return this.deck.pop();
+    }
+    reset() {
+        this.deck = [];
 
         const colors = ['Green', 'Blue', 'Red'];
         const numbers = [1, 2, 3];
