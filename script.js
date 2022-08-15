@@ -45,7 +45,7 @@ const body = document.querySelector('body')
 
 function fillTable() {
     for (let i = 0; i < 12; i++) {
-        let card =body.appendChild(document.createElement('div'))
+        let card = body.appendChild(document.createElement('div'))
         card.className = `card`;
         card.id = `card${i}`
         card.textContent = deck1.deal();
@@ -55,3 +55,14 @@ function fillTable() {
 fillTable();
 
 // select all card elements
+let selectedCount;
+const cards = document.querySelectorAll('.card');
+cards.forEach((card) => {
+    card.addEventListener('click', () => {
+        card.classList.add('selected');
+        selectedCount++;
+        if (selectedCount === 3) {
+            // add function to calculate set
+        }
+    })
+});
