@@ -46,9 +46,12 @@ const body = document.querySelector('body')
 function fillTable() {
     for (let i = 0; i < 12; i++) {
         let card =body.appendChild(document.createElement('div'))
-        card.className = `card${i}`;
+        card.className = `card`;
+        card.id = `card${i}`
         card.textContent = deck1.deal();
     }
 };
 
 fillTable();
+
+// select all card elements
