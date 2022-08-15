@@ -31,7 +31,12 @@ class Deck {
             for (let number in numbers) {
                 for (let shape in shapes) {
                     for (let shading in shadings) {
-                        this.deck.push(`${numbers[number]} ${colors[color]} ${shadings[shading]} ${shapes[shape]}`)
+                        this.deck.push({
+                            'number': `${numbers[number]}`,
+                            'color': `${colors[color]}`,
+                            'shading': `${shadings[shading]}`,
+                            'shape': `${shapes[shape]}`
+                        })
                     }
                 }
             }
@@ -44,25 +49,67 @@ const body = document.querySelector('body')
 
 
 function fillTable() {
+    let currentCard;
     for (let i = 0; i < 12; i++) {
         let card = body.appendChild(document.createElement('div'))
         card.className = `card`;
+        // may want to use full card description here
         card.id = `card${i}`
-        card.textContent = deck1.deal();
+        currentCard = deck1.deal();
+        var keys = Object.keys(currentCard);
+        var cardString = '';
+        // access individual properties with, for example, card.dataset.number
+        keys.forEach(key=>{
+            cardString += currentCard[key]
+            card.dataset[`${key}`] = currentCard[key]
+        })
+        card.textContent = cardString
     }
 };
 
 fillTable();
 
 // select all card elements
-let selectedCount;
+let selectedCards = [];
 const cards = document.querySelectorAll('.card');
 cards.forEach((card) => {
+    /* for (var d in card.dataset) {
+        console.log(d, dataset[d])
+    } */
+
     card.addEventListener('click', () => {
         card.classList.add('selected');
-        selectedCount++;
-        if (selectedCount === 3) {
+        // add card to a 'selected' array
+        selectedCards.push(card.dataset)
+        console.log(selectedCards)
+        if (selectedCards.length === 3) {
             // add function to calculate set
+            for (let i = 0; i < 3; i++) {
+
+            }
         }
     })
 });
+
+function calculateSet([cards]) {
+
+}
+function allSame(array) {
+    for (let element of array) {
+        if (element !== array[0]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+function allUnique(array) {
+    tmp = []
+    for (let element of array) {
+        if (tmp.includes(element) === false) {
+            tmp.push(element)
+        }
+    }
+    return array.length === tmp.length;
+}
