@@ -73,27 +73,36 @@ fillTable();
 let selectedCards = [];
 const cards = document.querySelectorAll('.card');
 cards.forEach((card) => {
-    /* for (var d in card.dataset) {
-        console.log(d, dataset[d])
-    } */
 
     card.addEventListener('click', () => {
         card.classList.add('selected');
         // add card to a 'selected' array
         selectedCards.push(card.dataset)
-        console.log(selectedCards)
         if (selectedCards.length === 3) {
-            // add function to calculate set
-            for (let i = 0; i < 3; i++) {
-
-            }
+            calculateSet(selectedCards);
         }
     })
 });
 
-function calculateSet([cards]) {
-
+function calculateSet(cards) {
+    let numbers = [], colors = [], shadings = [], shapes = [];
+    cards.forEach(card => {
+        Object.keys(card).forEach(key =>{
+            eval(key + "s.push(card['" + key + "']);") 
+        });
+    })
+    if (allSame(numbers) || allUnique(numbers)) {
+        if (allSame(colors) || allUnique(colors)) {
+            if (allSame(shadings) || allUnique(shadings)) {
+                if (allSame(shapes) || allUnique(shapes)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
+
 function allSame(array) {
     for (let element of array) {
         if (element !== array[0]) {
