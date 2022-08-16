@@ -46,7 +46,31 @@ class Deck {
 const deck1 = new Deck();
 
 const cardContainer = document.querySelector('.cardContainer')
+const scoreboard = document.querySelector('.scoreboard')
 
+let leftInDeck = scoreboard.appendChild(document.createElement('div'))
+leftInDeck.classList.add('leftInDeck')
+leftInDeck.textContent = `Cards remaining in deck: ${deck1.deck.length}`
+
+let points = 0;
+
+let pointsDisplay = scoreboard.appendChild(document.createElement('div'))
+pointsDisplay.classList.add('points')
+pointsDisplay.textContent = `Points: ${points}`
+
+let timer = scoreboard.appendChild(document.createElement('div'))
+timer.classList.add('timer')
+
+const timeOnLoad = new Date()
+
+var timerFunc = setInterval(function() {
+    const now = new Date()
+    var difference = now - timeOnLoad
+    var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    timer.textContent = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+}, 1000)
 
 function fillTable() {
     let currentCard;
@@ -72,7 +96,7 @@ cards.forEach((card) => {
         selectedCards.push(card.dataset)
         if (selectedCards.length === 3) {
             if (calculateSet(selectedCards)) {
-                //figure out how to target selected cards in DOM
+                points++
                 let set = document.querySelectorAll('.selected')
                 set.forEach(card => {
                     drawCard(card)
@@ -80,13 +104,16 @@ cards.forEach((card) => {
                     // if deck1.deck = []?
                 });
                 selectedCards = [];
+                pointsDisplay.textContent = `Points: ${points}`
             }
             else {
+                points--
                 let set = document.querySelectorAll('.selected')
                 set.forEach(card => {
                     card.classList.remove('selected')
                 });
                 selectedCards = [];
+                pointsDisplay.textContent = `Points: ${points}`
             }
         }
     })
@@ -152,4 +179,6 @@ function drawCard(htmlElement) {
     img.src = (`cards/${cardString}.svg`)
     img.style.height = "100%";
     img.style.width = "100%";
+    leftInDeck.textContent = `Cards remaining in deck: ${deck1.deck.length}`;
+
 }
