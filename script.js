@@ -55,15 +55,7 @@ function fillTable() {
         card.className = `card`;
         // may want to use full card description here
         card.id = `card${i}`
-        currentCard = deck1.deal();
-        var keys = Object.keys(currentCard);
-        var cardString = '';
-        // access individual properties with, for example, card.dataset.number
-        keys.forEach(key=>{
-            cardString += currentCard[key]
-            card.dataset[`${key}`] = currentCard[key]
-        })
-        card.textContent = cardString
+        drawCard(card)
     }
 };
 
@@ -79,11 +71,21 @@ cards.forEach((card) => {
         // add card to a 'selected' array
         selectedCards.push(card.dataset)
         if (selectedCards.length === 3) {
-            calculateSet(selectedCards);
+            if (calculateSet(selectedCards)) {
+                //figure out how to target selected cards in DOM
+                let set = document.querySelectorAll('.selected')
+                for (let card in set) {
+                    drawCard(card)
+                    // add condition for if deck is empty
+                    // if deck1.deck = []?
+                }
+            };
         }
     })
 });
 
+// returns true if the array of cards sent to it is either
+// all the same or all different for each card parameter
 function calculateSet(cards) {
     let numbers = [], colors = [], shadings = [], shapes = [];
     cards.forEach(card => {
@@ -121,4 +123,18 @@ function allUnique(array) {
         }
     }
     return array.length === tmp.length;
+}
+
+// send this function an HTML element stored in a variable
+// it will fill its text and data variables with card info dealt from the deck.
+function drawCard(htmlElement) {
+    currentCard = deck1.deal();
+    var keys = Object.keys(currentCard);
+    var cardString = '';
+    // access individual properties with, for example, card.dataset.number
+    keys.forEach(key=>{
+        cardString += currentCard[key]
+        htmlElement.dataset[`${key}`] = currentCard[key]
+    })
+    htmlElement.textContent = cardString
 }
