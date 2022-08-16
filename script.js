@@ -45,17 +45,17 @@ class Deck {
 }
 const deck1 = new Deck();
 
-const body = document.querySelector('body')
+const cardContainer = document.querySelector('.cardContainer')
 
 
 function fillTable() {
     let currentCard;
     for (let i = 0; i < 12; i++) {
-        let card = body.appendChild(document.createElement('div'))
+        let card = cardContainer.appendChild(document.createElement('div'))
         card.className = `card`;
         // may want to use full card description here
         card.id = `card${i}`
-        drawCard(card)
+        drawCard(card);
     }
 };
 
@@ -74,12 +74,20 @@ cards.forEach((card) => {
             if (calculateSet(selectedCards)) {
                 //figure out how to target selected cards in DOM
                 let set = document.querySelectorAll('.selected')
-                for (let card in set) {
+                set.forEach(card => {
                     drawCard(card)
                     // add condition for if deck is empty
                     // if deck1.deck = []?
-                }
-            };
+                });
+                selectedCards = [];
+            }
+            else {
+                let set = document.querySelectorAll('.selected')
+                set.forEach(card => {
+                    card.classList.remove('selected')
+                });
+                selectedCards = [];
+            }
         }
     })
 });
@@ -128,7 +136,11 @@ function allUnique(array) {
 // send this function an HTML element stored in a variable
 // it will fill its text and data variables with card info dealt from the deck.
 function drawCard(htmlElement) {
-    currentCard = deck1.deal();
+    while (htmlElement.firstChild) {
+        htmlElement.removeChild(htmlElement.firstChild)
+    }
+    htmlElement.classList.remove("selected");
+    let currentCard = deck1.deal();
     var keys = Object.keys(currentCard);
     var cardString = '';
     // access individual properties with, for example, card.dataset.number
@@ -136,5 +148,8 @@ function drawCard(htmlElement) {
         cardString += currentCard[key]
         htmlElement.dataset[`${key}`] = currentCard[key]
     })
-    htmlElement.textContent = cardString
+    var img = htmlElement.appendChild(document.createElement('img'))
+    img.src = (`cards/${cardString}.svg`)
+    img.style.height = "100%";
+    img.style.width = "100%";
 }
