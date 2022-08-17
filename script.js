@@ -83,20 +83,23 @@ class Deck {
 const deck1 = new Deck();
 
 const cardContainer = document.querySelector('.cardContainer')
-const scoreboard = document.querySelector('.scoreboard')
+const scoreboardText = document.querySelector('.scoreboardText')
 
-let leftInDeck = scoreboard.appendChild(document.createElement('div'))
+let leftInDeck = scoreboardText.appendChild(document.createElement('div'))
 leftInDeck.classList.add('leftInDeck')
+leftInDeck.classList.add('scoreboard-item')
 leftInDeck.textContent = `Cards remaining in deck: ${deck1.deck.length}`
 
 let points = 0;
 
-let pointsDisplay = scoreboard.appendChild(document.createElement('div'))
+let pointsDisplay = scoreboardText.appendChild(document.createElement('div'))
 pointsDisplay.classList.add('points')
+pointsDisplay.classList.add('scoreboard-item')
 pointsDisplay.textContent = `Points: ${points}`
 
-let timer = scoreboard.appendChild(document.createElement('div'))
+let timer = scoreboardText.appendChild(document.createElement('div'))
 timer.classList.add('timer')
+timer.classList.add('scoreboard-item')
 timer.textContent = 'Time passed: 00:00:00'
 
 const timeOnLoad = new Date()
@@ -129,7 +132,12 @@ const cards = document.querySelectorAll('.card');
 cards.forEach((card) => {
 
     card.addEventListener('click', () => {
-        card.classList.add('selected');
+        if (card.classList.contains('selected')) {
+            card.classList.remove('selected')
+        }
+        else {
+            card.classList.add('selected');
+        }
         // add card to a 'selected' array
         selectedCards.push(card.dataset)
         if (selectedCards.length === 3) {
