@@ -1,3 +1,40 @@
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector('#modal')
+        openModal(modal)
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal.active')
+    modals.forEach(modal => {
+        closeModal(modal)
+    })
+})
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.modal')
+        closeModal(modal)
+    })
+})
+
+function openModal(modal) {
+    if (modal == null) return
+    modal.classList.add('active')
+    overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+    if (modal == null) return
+    modal.classList.remove('active')
+    overlay.classList.remove('active')
+}
+
 /* code to create a deck adapted from William Vincent https://wsvincent.com/javascript-object-oriented-deck-cards/ */
 class Deck {
     constructor() {
@@ -60,6 +97,7 @@ pointsDisplay.textContent = `Points: ${points}`
 
 let timer = scoreboard.appendChild(document.createElement('div'))
 timer.classList.add('timer')
+timer.textContent = 'Time passed: 00:00:00'
 
 const timeOnLoad = new Date()
 
@@ -69,7 +107,7 @@ var timerFunc = setInterval(function() {
     var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((difference % (1000 * 60)) / 1000);
-    timer.textContent = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+    timer.textContent = 'Time passed: ' + hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
 }, 1000)
 
 function fillTable() {
@@ -107,7 +145,7 @@ cards.forEach((card) => {
                 pointsDisplay.textContent = `Points: ${points}`
             }
             else {
-                points--
+                points > 0 ? points-- : points = 0;
                 let set = document.querySelectorAll('.selected')
                 set.forEach(card => {
                     card.classList.remove('selected')
