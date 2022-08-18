@@ -1,67 +1,67 @@
-body {
-    width: 100%;
-    height: 100%;
-    background-color: pink;
+
+
+.scoreboard {
+    justify-self: center;
+    text-align: center;
 }
 
 .card:hover {
-    background-color: rgba(255, 100, 100, 5);
+    background-color: rgba(255, 100, 100, .3);
 }
 
-.selected {
-    background-color: rgba(255, 100, 100, 5);
+.selected, .selected:hover {
+    background-color: rgba(255, 100, 100, .8);
 }
 
 .card {
-    display: flex;
-    width: 15%;
-    height: auto;%;
+    width: 100%;
+    height: auto;
     min-width: 156;
     min-height: 251;
-    max-width: 331;
-    max-height: 531;
+    max-width: 531;
+    max-height: auto;
+    margin: -20px;
 }
 
 .cardContainer {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
     width: 100%;
-    height: 80%;
-}
-
-.scoreboard {
-    display: flex;
-    width: 100%;
-    height: 20%;
-    font-size: 36px;
+    height: 100%;
 }
 
 .rules {
-    height: 100%;
-    min-height: 400px;
-    width: 20%;
+    height: auto;
+    min-height: 50px;
+    display: flex;
+
 }
 
 .rulesButton {
-    font-size: 36px;
+    font-size: .75rem;
+    height: 50%;
+    width: 100%;
+    align-self: center;
+    color: white;
+    background-color: hsla(110, 50%, 90%, 0.8);
+    border: 2px solid hsla(110, 50%, 30%, 0.9);
+    border-radius: 10px;
+    box-shadow: none;
 }
 
 .leftInDeck {
     height: 100%;
-    min-height: 400px;
-    width: 30%;
+    min-height: 150px;
 }
 
 .points {
     height: 100%;
-    min-height: 400px;
-    width: 30%;
+    min-height: 150px;
 }
 
 .timer {
     height: 100%;
-    min-height: 400px;
-    width: 30%;
+    min-height: 150px;
 }
 img {
     flex: 1;
@@ -80,10 +80,10 @@ img {
     border-radius: 10px;
     z-index: 10;
     background-color: white;
-    width: 500px;
-    min-width: 60%;
-    max-width: 80%;
-    height: 300px;
+    width: 400px;
+    min-width: 50%;
+    max-width: 70%;
+    height: 1000px;
     min-height: 50%;
     max-height: 80%;
 }
@@ -117,7 +117,7 @@ img {
 .modal-body {
     height: 80%;
     padding: 10px 15px;
-    font-size: 1.5rem;
+    font-size: 1rem;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -138,3 +138,184 @@ img {
     pointer-events: all;
     opacity: 1;
 }
+
+.container {
+    display: grid; 
+    width: 100%;
+    grid-template-columns: repeat(4, 25%);
+}
+
+
+
+
+.rulesCard {
+    height:150px;
+    max-height:80%;
+    display: inline;
+}
+
+.examplesContainer {
+    display: flex;
+    width: 25%;
+}
+
+@media (max-width: 650px) {
+    .modal-body {
+        font-size: 12px;
+        height: 80%;
+        padding: 5px 7.5px;
+        font-size: 1rem;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    .rulesCard {
+        margin: -10px;
+    }
+    .rulesTableCard {
+        width: 65px;
+        height: auto;
+    }
+    .examplesContainer {
+        width: 25%;
+        margin-left: -5px;
+    }
+    
+    html {
+        font-size: 12px;
+    }
+    body {
+        padding: 10vh 0vw;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 10% 90%;
+        background: url('background.jpg');
+    }
+
+    .scoreboard {
+        display: grid;
+        margin-bottom: 10vh;
+        padding: 10px 25px;
+        grid-template-columns: 40% 60%;
+        gap: 10px;
+        grid-template-rows: 100%;
+        align-self: center;
+        width: 85%;
+        color: white;
+        height: 90%;
+        background-color: hsla(110, 80%, 30%, 0.5);
+        border: 2px solid hsla(110, 100%, 70%, 0.6);
+    }
+
+    .scoreboardText {
+        height: 100%;
+        width: auto;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(3, 30%);
+    }
+
+    .cardContainer {
+        grid-template-rows: repeat(3, 20%);
+        row-gap: 5vh;
+        margin-left: 5%;
+    }
+}
+
+@media (min-width: 400px) {
+    .cardContainer {
+        grid-template-rows: repeat(3, 15%);
+    }
+}
+
+@media (min-width: 500px) {
+
+}
+
+@media (min-width: 650px) {
+    html {
+        font-size: 24px;
+    }
+    .modal {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 650px) {
+    body {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 100%;
+        column-gap: .5em;
+        justify-content: center;;
+        width: 90vw;
+        height: 95vh;
+        padding: .5em 1rem;
+        background: url('background.jpg');
+        background-size: cover;
+    }
+
+    .scoreboard {
+        display: grid;
+        margin-top: 0px;
+        padding: 10px 25px;
+        grid-template-columns: 100%;
+        grid-template-rows: 30% repeat(3, 15%);
+        align-self: center;
+        width: 60%;
+        color: white;
+        height: 80vh;
+        background-color: hsla(110, 80%, 30%, 0.5);
+        border: 2px solid hsla(110, 100%, 70%, 0.6);
+    }
+
+    .cardContainer {
+        grid-template-rows: repeat(3, 33%);
+    }
+
+}
+
+@media (max-width: 950px) {
+    .smallCardContainer {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1150px) {
+    .smallCardContainer {
+        display: grid;
+        font-size: 16px;
+        grid-template-columns: 60% 40%;
+        grid-template-rows: repeat (4, 25%);
+        align-items: center;
+    }
+}
+
+@media (min-width: 1500px) {
+    html {
+        font-size: 36px;
+    }
+    .modal {
+        font-size: 24px;
+    }
+    .smallCardContainer {
+        display: grid;
+        font-size: 24px;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat (4, 25%);
+        align-items: center;
+    }
+}
+
+
+@media (max-height: 780) {
+    .scoreboard {
+        margin-bottom: 100px;
+    }
+}
+
+@media (min-height: 780) {
+    .cardContainer {
+        margin-top: 25vh;
+    }
+}
+

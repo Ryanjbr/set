@@ -134,12 +134,18 @@ cards.forEach((card) => {
     card.addEventListener('click', () => {
         if (card.classList.contains('selected')) {
             card.classList.remove('selected')
+            selectedCards.forEach(item => {
+                console.log(item)
+                if (item === card.dataset) {
+                    selectedCards.splice(selectedCards.indexOf(item))
+                }
+            })
         }
         else {
             card.classList.add('selected');
+            selectedCards.push(card.dataset)
         }
         // add card to a 'selected' array
-        selectedCards.push(card.dataset)
         if (selectedCards.length === 3) {
             if (calculateSet(selectedCards)) {
                 points++
